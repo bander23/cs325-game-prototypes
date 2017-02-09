@@ -33,7 +33,9 @@ window.onload = function() {
     var text = 0;
     
 function create() {
-        // Create a sprite at the center of the screen using the 'logo' image.
+	game.physics.startSystem(Phaser.Physics.ARCADE);       
+
+	 // Create a sprite at the center of the screen using the 'logo' image.
         earth = game.add.sprite( game.world.centerX, game.world.centerY, 'logo' );
         rock = game.add.sprite( 1000, game.world.centerY, 'rock');
 	rock2 = game.add.sprite( 1000, game.world.randomY, 'rock');
@@ -47,6 +49,12 @@ function create() {
         earth.anchor.setTo( 0.5, 0.5 );
         // Turn on the arcade physics engine for this sprite.
         game.physics.enable( earth, Phaser.Physics.ARCADE );
+	game.physics.enable( rock, Phaser.Physics.ARCADE );
+	game.physics.enable( rock2, Phaser.Physics.ARCADE );
+	game.physics.enable( rock3, Phaser.Physics.ARCADE );
+	game.physics.enable( rock4, Phaser.Physics.ARCADE );
+	game.physics.enable( rock5, Phaser.Physics.ARCADE );
+	game.physics.enable( rock6, Phaser.Physics.ARCADE );
         // Make it bounce off of the world bounds.
         earth.body.collideWorldBounds = true;
 	// Add some text using a CSS style.
@@ -55,18 +63,8 @@ function create() {
         text = game.add.text( game.world.centerX, 15, "Timer: 0", style );
         game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 	text.anchor.setTo( 0.5, 0.0 );   
-	rock.animations.add('hurtle');
-	rock.animations.play('hurtle', 2, true);
-	rock2.animations.add('hurtle');
-	rock2.animations.play('hurtle', 2, true);
-	rock3.animations.add('hurtle');
-	rock3.animations.play('hurtle', 2, true);
-	rock4.animations.add('hurtle');
-	rock4.animations.play('hurtle', 2, true);
-	rock5.animations.add('hurtle');
-	rock5.animations.play('hurtle', 2, true);
-	rock6.animations.add('hurtle');
-	rock6.animations.play('hurtle', 2, true);
+	
+
 }
 //Taken from phaser example for a simple timer
 function updateCounter() {
@@ -120,12 +118,12 @@ text.setText('Timer: ' + counter);
 	rock6.x = game.world.width;
 	}
 
-	game.physics.arcade.overlap(rock, earth, collisionHandler, null, this);
-	game.physics.arcade.overlap(rock2, earth, collisionHandler, null, this);
-	game.physics.arcade.overlap(rock3, earth, collisionHandler, null, this);
-	game.physics.arcade.overlap(rock4, earth, collisionHandler, null, this);
-	game.physics.arcade.overlap(rock5, earth, collisionHandler, null, this);
-	game.physics.arcade.overlap(rock6, earth, collisionHandler, null, this);
+	game.physics.arcade.collide(rock, earth, collisionHandler, null, this);
+	game.physics.arcade.collide(rock2, earth, collisionHandler, null, this);
+	game.physics.arcade.collide(rock3, earth, collisionHandler, null, this);
+	game.physics.arcade.collide(rock4, earth, collisionHandler, null, this);
+	game.physics.arcade.collide(rock5, earth, collisionHandler, null, this);
+	game.physics.arcade.collide(rock6, earth, collisionHandler, null, this);
 	//doesn't work. Is it because its using an animation and not the velocity of the sprite?
 
 }
