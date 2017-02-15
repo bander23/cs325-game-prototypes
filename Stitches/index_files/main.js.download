@@ -1,0 +1,244 @@
+window.onload = function() {
+    // You might want to start with a template that uses GameStates:
+    //     https://github.com/photonstorm/phaser/tree/v2.6.2/resources/Project%20Templates/Basic
+    
+    // You can copy-and-paste the code from any of the examples at http://examples.phaser.io here.
+    // You will need to change the fourth parameter to "new Phaser.Game()" from
+    // 'phaser-example' to 'game', which is the id of the HTML element where we
+    // want the game to go.
+    // The assets (and code) can be found at: https://github.com/photonstorm/phaser/tree/master/examples/assets
+    // You will need to change the paths you pass to "game.load.image()" or any other
+    // loading functions to reflect where you are putting the assets.
+    // All loading functions will typically all be found inside "preload()".
+	//used code from looped animation example
+    
+    "use strict";
+    
+    var game = new Phaser.Game( 800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
+    
+    function preload() {
+        // Load an image and call it 'logo'.
+        game.load.image( 'logo', 'assets/heart.png' );
+	game.load.image( 'rock', 'assets/needle.png' );
+    }
+    
+    var heart;
+    var n1;
+    var n2;
+    var n3;
+    var n4;
+    var n5;
+    var n6;
+    var n7;
+    var n8;
+    var n9;
+    var button;
+    var counter=0;
+    var text = 0;
+    var over = 0;
+    var style;    
+function create() {
+	game.physics.startSystem(Phaser.Physics.ARCADE);       
+
+	 // Create a sprite at the center of the screen using the 'logo' image.
+        heart = game.add.sprite( game.world.centerX, game.world.centerY, 'logo' );
+        n1 = game.add.sprite( 1000, game.world.centerY, 'rock');
+	n2 = game.add.sprite( 1000, game.world.randomY, 'rock');
+	n3 = game.add.sprite( 1000, game.world.randomY, 'rock');
+	n4 = game.add.sprite( 1000, game.world.randomY, 'rock');
+	n5 = game.add.sprite( 1000, game.world.randomY, 'rock');
+	n6 = game.add.sprite( 1000, game.world.randomY, 'rock');
+	n7 = game.add.sprite( 1000, game.world.randomY, 'rock');
+	n8 = game.add.sprite( 1000, game.world.randomY, 'rock');
+	n9 = game.add.sprite( 1000, game.world.randomY, 'rock');
+
+	// Anchor the sprite at its center, as opposed to its top-left corner.
+        // so it will be left centered.
+        heart.anchor.setTo( 0.5, 0.5 );
+        // Turn on the arcade physics engine for this sprite.
+        game.physics.enable( heart, Phaser.Physics.ARCADE );
+	game.physics.enable( n1, Phaser.Physics.ARCADE );
+	game.physics.enable( n2, Phaser.Physics.ARCADE );
+	game.physics.enable( n3, Phaser.Physics.ARCADE );
+	game.physics.enable( n4, Phaser.Physics.ARCADE );
+	game.physics.enable( n5, Phaser.Physics.ARCADE );
+	game.physics.enable( n6, Phaser.Physics.ARCADE );
+	game.physics.enable( n7, Phaser.Physics.ARCADE );
+	game.physics.enable( n8, Phaser.Physics.ARCADE );
+	game.physics.enable( n9, Phaser.Physics.ARCADE );
+        // Make it bounce off of the world bounds.
+        heart.body.collideWorldBounds = true;
+	// Add some text using a CSS style.
+        // Center it in X, and position its top 15 pixels from the top of the world.
+        style = { font: "25px Verdana", fill: "#9999ff", align: "center" };
+        text = game.add.text( game.world.centerX, 15, "Timer: 0", style );
+        game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
+	text.anchor.setTo( 0.5, 0.0 );   
+	
+
+}
+//Taken from phaser example for a simple timer
+function updateCounter() {
+counter++;
+text.setText('Timer: ' + counter);
+
+}
+    
+    function update() {
+        // Accelerate the 'logo' sprite towards the cursor,
+        // accelerating at 500 pixels/second and moving no faster than 500 pixels/second
+        // in X or Y.
+        // This function returns the rotation angle that makes it visually match its
+        // new trajectory.
+        //heart.rotation = game.physics.arcade.accelerateToPointer( heart, this.game.input.activePointer, 500, 500, 500 );
+	if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+	{
+		heart.x -=5;
+	}
+	if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+	{
+		heart.x +=5;
+	}
+	if(game.input.keyboard.isDown(Phaser.Keyboard.UP))
+	{
+		heart.y -=5;
+	}
+	if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
+	{
+		heart.y +=5;
+	}
+
+
+
+
+
+
+
+	n1.x -=2;
+	
+	if(n1.x < -n1.width)
+	{
+	n1.x = game.world.width;
+	}
+	n2.x -=7;
+	
+	if(n2.x < -n2.width)
+	{
+	n2.x = game.world.width;
+	}
+	n3.x -=1;
+	
+	if(n3.x < -n3.width)
+	{
+	n3.x = game.world.width;
+	}
+	n4.x -=8;
+	
+	if(n4.x < n4.width)
+	{
+	n4.x = game.world.width;
+	}
+	n5.x -=10;
+	n5.y -= 2;
+	if(n5.y < -n5.height)
+	{
+	n5.y = game.world.height;
+	}
+	if(n5.x < -n5.width)
+	{
+	n5.x = game.world.width;
+	}
+	n6.x -=12;
+	n6.y -=5;
+
+	if(n6.y < -n6.height)
+	{
+	n6.y = game.world.height;
+	}
+	if(n6.x < -n6.width)
+	{
+	n6.x = game.world.width;
+	}
+	n7.x -=6;
+	n7.y -=6;
+
+	if(n7.y < -n7.height)
+	{
+	n7.y = game.world.height;
+	}
+	if(n7.x < -n7.width)
+	{
+	n7.x = game.world.width;
+	}
+	n8.x -=6;
+	n8.y -=2;
+
+	if(n8.y < -n8.height)
+	{
+	n8.y = game.world.height;
+	}
+	if(n8.x < -n8.width)
+	{
+	n8.x = game.world.width;
+	}
+	
+	n9.x -=1;
+	n9.y -=3;
+
+	if(n9.y < -n9.height)
+	{
+	n9.y = game.world.height;
+	}
+	if(n9.x < -n9.width)
+	{
+	n9.x = game.world.width;
+	}
+
+	game.physics.arcade.collide(n1, heart, collisionHandler, null, this);
+	game.physics.arcade.collide(n2, heart, collisionHandler, null, this);
+	game.physics.arcade.collide(n3, heart, collisionHandler, null, this);
+	game.physics.arcade.collide(n4, heart, collisionHandler, null, this);
+	game.physics.arcade.collide(n5, heart, collisionHandler, null, this);
+	game.physics.arcade.collide(n6, heart, collisionHandler, null, this);
+	game.physics.arcade.collide(n7, heart, collisionHandler, null, this);
+	game.physics.arcade.collide(n8, heart, collisionHandler, null, this);
+	game.physics.arcade.collide(n9, heart, collisionHandler, null, this);
+
+}
+
+function collisionHandler () {
+text.setText('Final Time: ' + counter);
+game.paused = true;
+over = game.add.text( game.world.centerX, 100, "Click to restart", style );
+game.input.onDown.add(unpause, self);
+}
+
+function unpause(event){
+counter = 0;
+over.setText('');
+heart.anchor.setTo( 0.5, 0.5 );
+heart.x = world.center.X;
+heart.y = world.center.Y;
+n1.x=1000;
+n2.x=1000;
+n3.x=1000;
+n4.x=1000;
+n5.x=1000;
+n6.x=1000;
+n7.x=1000;
+n8.x=1000;
+n9.x=1000;
+n1.y=game.world.randomY;
+n2.y=game.world.randomY;
+n3.y=game.world.randomY;
+n4.y=game.world.randomY;
+n5.y=game.world.randomY;
+n6.y=game.world.randomY;
+n7.y=game.world.randomY;
+n8.y=game.world.randomY;
+n9.y=game.world.randomY;
+game.input.onDown.remove(unpause,self);
+game.paused = false;
+}
+
+};
