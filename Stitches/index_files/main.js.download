@@ -237,8 +237,8 @@ n6.y=game.world.randomY;
 n7.y=game.world.randomY;
 n8.y=game.world.randomY;
 n9.y=game.world.randomY;
-game.input.onDown.remove(unpause,self);
 game.paused = false;
+game.input.remove(unpause,self);
 }
 
 };
